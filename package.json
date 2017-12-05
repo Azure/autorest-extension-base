@@ -1,0 +1,22 @@
+{
+  "name": "autorest-extension-base",
+  "version": "0.1.0",
+  "description": "Library for easily creating AutoRest extensions",
+  "main": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/olydis/autorest-extension-base.git"
+  },
+  "keywords": [
+    "autorest",
+    "extension"
+  ],
+  "author": "Microsoft Corporation",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^7.0.18"
+  },
+  "dependencies": {
+    "vscode-jsonrpc": "^3.2.0"
+  }
+}
