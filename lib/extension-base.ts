@@ -32,7 +32,7 @@ export interface IAutoRestPluginInitiator {
   Message(message: Message): void;
 }
 
-type AutoRestPluginHandler = (initiator: IAutoRestPluginInitiator) => Promise<void>;
+export type AutoRestPluginHandler = (initiator: IAutoRestPluginInitiator) => Promise<void>;
 
 export class AutoRestExtension {
   private readonly plugins: { [name: string]: AutoRestPluginHandler } = {};
