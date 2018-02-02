@@ -11,6 +11,7 @@
     "publish-preview": "node ./.scripts/publish",
     "unpack": "shx rm -rf ./package && yarn pack && gzip -cd *.tgz | tar xv && erase *.tgz"
   },
+  "typings": "./dist/main.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/azure/autorest-extension-base.git"
