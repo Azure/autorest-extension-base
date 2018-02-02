@@ -1,0 +1,1 @@
+export { AutoRestExtension, IAutoRestPluginInitiator as Host } from "./lib/extension-base";
