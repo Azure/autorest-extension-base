@@ -22,7 +22,8 @@ module IAutoRestPluginInitiator_Types {
   export const WriteFile = new NotificationType4<string, string, string, Mapping[] | RawSourceMap | undefined, void>("WriteFile");
   export const Message = new NotificationType2<string, Message, void>("Message");
 }
-interface IAutoRestPluginInitiator {
+
+export interface IAutoRestPluginInitiator {
   ReadFile(filename: string): Promise<string>;
   GetValue(key: string): Promise<any>;
   ListInputs(): Promise<string[]>;

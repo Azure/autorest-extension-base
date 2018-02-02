@@ -1,11 +1,19 @@
 {
   "name": "autorest-extension-base",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Library for easily creating AutoRest extensions",
-  "main": "dist/index.js",
+  "main": "dist/main.js",
+  "scripts": {
+    "build": "tsc -p .",
+    "prepare": "npm run build",
+    "test": "npm run build",
+    "testci": "npm run build",
+    "publish-preview": "node ./.scripts/publish",
+    "unpack": "shx rm -rf ./package && yarn pack && gzip -cd *.tgz | tar xv && erase *.tgz"
+  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/olydis/autorest-extension-base.git"
+    "url": "git+https://github.com/azure/autorest-extension-base.git"
   },
   "keywords": [
     "autorest",
@@ -14,9 +22,11 @@
   "author": "Microsoft Corporation",
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "^7.0.18"
+    "@types/node": "^9.4.0",
+    "shx": "^0.2.2",
+    "typescript": "^2.6.1"
   },
   "dependencies": {
-    "vscode-jsonrpc": "^3.2.0"
+    "vscode-jsonrpc": "^3.5.0"
   }
 }

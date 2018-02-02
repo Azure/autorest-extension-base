@@ -1,1 +1,0 @@
-export { AutoRestExtension } from "./lib/extension-base";
