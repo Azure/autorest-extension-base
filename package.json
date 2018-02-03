@@ -5,9 +5,9 @@
   "main": "dist/main.js",
   "scripts": {
     "build": "tsc -p .",
-    "prepare": "npm run build",
-    "test": "npm run build",
-    "testci": "npm run build",
+    "prepare": "tsc -p .",
+    "test": "",
+    "testci": "tsc -p .",
     "publish-preview": "node ./.scripts/publish",
     "unpack": "shx rm -rf ./package && yarn pack && gzip -cd *.tgz | tar xv && erase *.tgz"
   },
