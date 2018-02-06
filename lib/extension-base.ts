@@ -18,7 +18,7 @@ interface IAutoRestPluginTarget {
 module IAutoRestPluginInitiator_Types {
   export const ReadFile = new RequestType2<string, string, string, Error, void>("ReadFile");
   export const GetValue = new RequestType2<string, string, any, Error, void>("GetValue");
-  export const ListInputs = new RequestType1<string, string[], Error, void>("ListInputs");
+  export const ListInputs = new RequestType2<string, string|undefined, string[],Error, void>("ListInputs");
   export const WriteFile = new NotificationType4<string, string, string, Mapping[] | RawSourceMap | undefined, void>("WriteFile");
   export const Message = new NotificationType2<string, Message, void>("Message");
 }
@@ -26,7 +26,7 @@ module IAutoRestPluginInitiator_Types {
 export interface IAutoRestPluginInitiator {
   ReadFile(filename: string): Promise<string>;
   GetValue(key: string): Promise<any>;
-  ListInputs(): Promise<string[]>;
+  ListInputs(artifactType?:string): Promise<string[]>;
 
   WriteFile(filename: string, content: string, sourceMap?: Mapping[] | RawSourceMap): void;
   Message(message: Message): void;
@@ -68,10 +68,9 @@ export class AutoRestExtension {
           async GetValue(key: string): Promise<any> {
             return await channel.sendRequest(IAutoRestPluginInitiator_Types.GetValue, sessionId, key);
           },
-          async ListInputs(): Promise<string[]> {
-            return await channel.sendRequest(IAutoRestPluginInitiator_Types.ListInputs, sessionId);
+          async ListInputs(artifactType?:string): Promise<string[]> {
+            return await channel.sendRequest(IAutoRestPluginInitiator_Types.ListInputs, sessionId,artifactType);
           },
-
           WriteFile(filename: string, content: string, sourceMap?: Mapping[] | RawSourceMap): void {
             channel.sendNotification(IAutoRestPluginInitiator_Types.WriteFile, sessionId, filename, content, sourceMap);
           },
