@@ -71,7 +71,6 @@ export class AutoRestExtension {
           async ListInputs(artifactType?:string): Promise<string[]> {
             return await channel.sendRequest(IAutoRestPluginInitiator_Types.ListInputs, sessionId,artifactType);
           },
-
           WriteFile(filename: string, content: string, sourceMap?: Mapping[] | RawSourceMap): void {
             channel.sendNotification(IAutoRestPluginInitiator_Types.WriteFile, sessionId, filename, content, sourceMap);
           },

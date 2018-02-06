@@ -55,7 +55,7 @@ export interface Message {
 }
 
 export interface ArtifactMessage extends Message { 
-  Details: Artifact; 
+  Details: Artifact & { sourceMap?: Array<Mapping> | RawSourceMap };
 }
 
 export interface RawSourceMap {
