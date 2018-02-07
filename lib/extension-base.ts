@@ -4,7 +4,7 @@ import {
   NotificationType2, NotificationType4
 } from "vscode-jsonrpc";
 import { Readable } from "stream";
-import { Mapping, Message, RawSourceMap } from "./types";
+import { Mapping, Message, RawSourceMap,Channel } from "./types";
 
 module IAutoRestPluginTarget_Types {
   export const GetPluginNames = new RequestType0<string[], Error, void>("GetPluginNames");
@@ -28,7 +28,7 @@ export interface IAutoRestPluginInitiator {
   GetValue(key: string): Promise<any>;
   ListInputs(artifactType?:string): Promise<string[]>;
 
-  WriteFile(filename: string, content: string, sourceMap?: Mapping[] | RawSourceMap): void;
+  WriteFile(filename: string, content: string, sourceMap?: Mapping[] | RawSourceMap,artifactType?:string): void;
   Message(message: Message): void;
 }
 
@@ -71,9 +71,24 @@ export class AutoRestExtension {
           async ListInputs(artifactType?:string): Promise<string[]> {
             return await channel.sendRequest(IAutoRestPluginInitiator_Types.ListInputs, sessionId,artifactType);
           },
-          WriteFile(filename: string, content: string, sourceMap?: Mapping[] | RawSourceMap): void {
-            channel.sendNotification(IAutoRestPluginInitiator_Types.WriteFile, sessionId, filename, content, sourceMap);
+          WriteFile(filename: string, content: string, sourceMap?: Mapping[] | RawSourceMap, artifactType?:string): void {
+            if( artifactType ) {
+              channel.sendNotification(IAutoRestPluginInitiator_Types.Message, sessionId, {
+                Channel: Channel.File,
+                Details: {
+                  content:content,
+                  type:artifactType,
+                  uri:filename,
+                  sourceMap: sourceMap
+                },
+                Text: content,
+                Key: [artifactType,filename]
+              });
+            } else {
+              channel.sendNotification(IAutoRestPluginInitiator_Types.WriteFile, sessionId, filename, content, sourceMap);
+            }
           },
+          
           Message(message: Message): void {
             channel.sendNotification(IAutoRestPluginInitiator_Types.Message, sessionId, message);
           }
