@@ -85,7 +85,9 @@ export class AutoRestExtension {
               for (const each of items) {
                 try {
                   const content = await channel.sendRequest(IAutoRestPluginInitiator_Types.ReadFile, sessionId, each);
-                  send(each, content);
+                  if (content || content === "") {
+                    send(path, content);
+                  }
                 } catch (E) {
                 }
 
@@ -98,7 +100,10 @@ export class AutoRestExtension {
             try {
 
               const content = await channel.sendRequest(IAutoRestPluginInitiator_Types.ReadFile, sessionId, path);
-              send(path, content);
+              if (content || content === "") {
+                send(path, content);
+              }
+
             } catch {
               // didn't get that either.
             }
